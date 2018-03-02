@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.OndutylogMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Ondutylog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="beHelpedName" property="behelpedname" jdbcType="VARCHAR" />
+    <result column="beHelpedQQ" property="behelpedqq" jdbcType="VARCHAR" />
+    <result column="beHelpedInfo" property="behelpedinfo" jdbcType="VARCHAR" />
+    <result column="qustionDescription" property="qustiondescription" jdbcType="VARCHAR" />
+    <result column="solutionReport" property="solutionreport" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="BIT" />
+    <result column="checkTime" property="checktime" jdbcType="TIMESTAMP" />
+    <result column="submitTime" property="submittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, oid, mid, cid, beHelpedName, beHelpedQQ, beHelpedInfo, qustionDescription, solutionReport, 
+    flag, checkTime, submitTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.OndutylogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ondutylog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ondutylog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ondutylog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.OndutylogExample" >
+    delete from ondutylog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.Ondutylog" >
+    insert into ondutylog (id, oid, mid, 
+      cid, beHelpedName, beHelpedQQ, 
+      beHelpedInfo, qustionDescription, solutionReport, 
+      flag, checkTime, submitTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER}, 
+      #{cid,jdbcType=INTEGER}, #{behelpedname,jdbcType=VARCHAR}, #{behelpedqq,jdbcType=VARCHAR}, 
+      #{behelpedinfo,jdbcType=VARCHAR}, #{qustiondescription,jdbcType=VARCHAR}, #{solutionreport,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=BIT}, #{checktime,jdbcType=TIMESTAMP}, #{submittime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.Ondutylog" >
+    insert into ondutylog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="behelpedname != null" >
+        beHelpedName,
+      </if>
+      <if test="behelpedqq != null" >
+        beHelpedQQ,
+      </if>
+      <if test="behelpedinfo != null" >
+        beHelpedInfo,
+      </if>
+      <if test="qustiondescription != null" >
+        qustionDescription,
+      </if>
+      <if test="solutionreport != null" >
+        solutionReport,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="checktime != null" >
+        checkTime,
+      </if>
+      <if test="submittime != null" >
+        submitTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="behelpedname != null" >
+        #{behelpedname,jdbcType=VARCHAR},
+      </if>
+      <if test="behelpedqq != null" >
+        #{behelpedqq,jdbcType=VARCHAR},
+      </if>
+      <if test="behelpedinfo != null" >
+        #{behelpedinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="qustiondescription != null" >
+        #{qustiondescription,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionreport != null" >
+        #{solutionreport,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=BIT},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submittime != null" >
+        #{submittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.OndutylogExample" resultType="java.lang.Integer" >
+    select count(*) from ondutylog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ondutylog
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.oid != null" >
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.behelpedname != null" >
+        beHelpedName = #{record.behelpedname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.behelpedqq != null" >
+        beHelpedQQ = #{record.behelpedqq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.behelpedinfo != null" >
+        beHelpedInfo = #{record.behelpedinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qustiondescription != null" >
+        qustionDescription = #{record.qustiondescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.solutionreport != null" >
+        solutionReport = #{record.solutionreport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=BIT},
+      </if>
+      <if test="record.checktime != null" >
+        checkTime = #{record.checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.submittime != null" >
+        submitTime = #{record.submittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ondutylog
+    set id = #{record.id,jdbcType=INTEGER},
+      oid = #{record.oid,jdbcType=INTEGER},
+      mid = #{record.mid,jdbcType=INTEGER},
+      cid = #{record.cid,jdbcType=INTEGER},
+      beHelpedName = #{record.behelpedname,jdbcType=VARCHAR},
+      beHelpedQQ = #{record.behelpedqq,jdbcType=VARCHAR},
+      beHelpedInfo = #{record.behelpedinfo,jdbcType=VARCHAR},
+      qustionDescription = #{record.qustiondescription,jdbcType=VARCHAR},
+      solutionReport = #{record.solutionreport,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=BIT},
+      checkTime = #{record.checktime,jdbcType=TIMESTAMP},
+      submitTime = #{record.submittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.Ondutylog" >
+    update ondutylog
+    <set >
+      <if test="oid != null" >
+        oid = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="behelpedname != null" >
+        beHelpedName = #{behelpedname,jdbcType=VARCHAR},
+      </if>
+      <if test="behelpedqq != null" >
+        beHelpedQQ = #{behelpedqq,jdbcType=VARCHAR},
+      </if>
+      <if test="behelpedinfo != null" >
+        beHelpedInfo = #{behelpedinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="qustiondescription != null" >
+        qustionDescription = #{qustiondescription,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionreport != null" >
+        solutionReport = #{solutionreport,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=BIT},
+      </if>
+      <if test="checktime != null" >
+        checkTime = #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submittime != null" >
+        submitTime = #{submittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Ondutylog" >
+    update ondutylog
+    set oid = #{oid,jdbcType=INTEGER},
+      mid = #{mid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER},
+      beHelpedName = #{behelpedname,jdbcType=VARCHAR},
+      beHelpedQQ = #{behelpedqq,jdbcType=VARCHAR},
+      beHelpedInfo = #{behelpedinfo,jdbcType=VARCHAR},
+      qustionDescription = #{qustiondescription,jdbcType=VARCHAR},
+      solutionReport = #{solutionreport,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=BIT},
+      checkTime = #{checktime,jdbcType=TIMESTAMP},
+      submitTime = #{submittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

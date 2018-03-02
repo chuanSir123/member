@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.ClueMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Clue" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="realName" property="realname" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="diploma" property="diploma" jdbcType="VARCHAR" />
+    <result column="btime" property="btime" jdbcType="TIMESTAMP" />
+    <result column="etime" property="etime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="graduateDate" property="graduatedate" jdbcType="TIMESTAMP" />
+    <result column="flag" property="flag" jdbcType="TINYINT" />
+    <result column="exnum" property="exnum" jdbcType="VARCHAR" />
+    <result column="summaryflag" property="summaryflag" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, aid, num, sex, qq, realName, school, diploma, btime, etime, type, phone, graduateDate, 
+    flag, exnum, summaryflag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.ClueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from clue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from clue
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from clue
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.ClueExample" >
+    delete from clue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.Clue" >
+    insert into clue (id, aid, num, 
+      sex, qq, realName, 
+      school, diploma, btime, 
+      etime, type, phone, graduateDate, 
+      flag, exnum, summaryflag
+      )
+    values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{diploma,jdbcType=VARCHAR}, #{btime,jdbcType=TIMESTAMP}, 
+      #{etime,jdbcType=TIMESTAMP}, #{type,jdbcType=BIT}, #{phone,jdbcType=VARCHAR}, #{graduatedate,jdbcType=TIMESTAMP}, 
+      #{flag,jdbcType=TINYINT}, #{exnum,jdbcType=VARCHAR}, #{summaryflag,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.Clue" >
+    insert into clue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="realname != null" >
+        realName,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="diploma != null" >
+        diploma,
+      </if>
+      <if test="btime != null" >
+        btime,
+      </if>
+      <if test="etime != null" >
+        etime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="graduatedate != null" >
+        graduateDate,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="exnum != null" >
+        exnum,
+      </if>
+      <if test="summaryflag != null" >
+        summaryflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="diploma != null" >
+        #{diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="btime != null" >
+        #{btime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etime != null" >
+        #{etime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatedate != null" >
+        #{graduatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="exnum != null" >
+        #{exnum,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryflag != null" >
+        #{summaryflag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.ClueExample" resultType="java.lang.Integer" >
+    select count(*) from clue
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update clue
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null" >
+        realName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diploma != null" >
+        diploma = #{record.diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btime != null" >
+        btime = #{record.btime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.etime != null" >
+        etime = #{record.etime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=BIT},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduatedate != null" >
+        graduateDate = #{record.graduatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=TINYINT},
+      </if>
+      <if test="record.exnum != null" >
+        exnum = #{record.exnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summaryflag != null" >
+        summaryflag = #{record.summaryflag,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update clue
+    set id = #{record.id,jdbcType=INTEGER},
+      aid = #{record.aid,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      realName = #{record.realname,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      diploma = #{record.diploma,jdbcType=VARCHAR},
+      btime = #{record.btime,jdbcType=TIMESTAMP},
+      etime = #{record.etime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=BIT},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      graduateDate = #{record.graduatedate,jdbcType=TIMESTAMP},
+      flag = #{record.flag,jdbcType=TINYINT},
+      exnum = #{record.exnum,jdbcType=VARCHAR},
+      summaryflag = #{record.summaryflag,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.Clue" >
+    update clue
+    <set >
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="diploma != null" >
+        diploma = #{diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="btime != null" >
+        btime = #{btime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etime != null" >
+        etime = #{etime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="graduatedate != null" >
+        graduateDate = #{graduatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="exnum != null" >
+        exnum = #{exnum,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryflag != null" >
+        summaryflag = #{summaryflag,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Clue" >
+    update clue
+    set aid = #{aid,jdbcType=INTEGER},
+      num = #{num,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      diploma = #{diploma,jdbcType=VARCHAR},
+      btime = #{btime,jdbcType=TIMESTAMP},
+      etime = #{etime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=BIT},
+      phone = #{phone,jdbcType=VARCHAR},
+      graduateDate = #{graduatedate,jdbcType=TIMESTAMP},
+      flag = #{flag,jdbcType=TINYINT},
+      exnum = #{exnum,jdbcType=VARCHAR},
+      summaryflag = #{summaryflag,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

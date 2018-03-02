@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Member" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="student" property="student" jdbcType="BIT" />
+    <result column="graduateDate" property="graduatedate" jdbcType="DATE" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="abnormal" property="abnormal" jdbcType="BIT" />
+    <result column="provid" property="provid" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="BIT" />
+    <result column="alog" property="alog" jdbcType="INTEGER" />
+    <result column="restAmount" property="restamount" jdbcType="REAL" />
+    <result column="restInterest" property="restinterest" jdbcType="REAL" />
+    <result column="fee" property="fee" jdbcType="BIT" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="summaryflag" property="summaryflag" jdbcType="BIT" />
+    <result column="seat_provid" property="seatProvid" jdbcType="INTEGER" />
+    <result column="periodStatus" property="periodstatus" jdbcType="INTEGER" />
+    <result column="schProId" property="schproid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, uid, name, sex, school, company, mobile, student, graduateDate, time, abnormal, 
+    provid, flag, alog, restAmount, restInterest, fee, aid, eid, summaryflag, seat_provid, 
+    periodStatus, schProId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.MemberExample" >
+    delete from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.Member" >
+    insert into member (id, uid, name, 
+      sex, school, company, 
+      mobile, student, graduateDate, 
+      time, abnormal, provid, 
+      flag, alog, restAmount, restInterest, 
+      fee, aid, eid, summaryflag, 
+      seat_provid, periodStatus, schProId
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{student,jdbcType=BIT}, #{graduatedate,jdbcType=DATE}, 
+      #{time,jdbcType=TIMESTAMP}, #{abnormal,jdbcType=BIT}, #{provid,jdbcType=INTEGER}, 
+      #{flag,jdbcType=BIT}, #{alog,jdbcType=INTEGER}, #{restamount,jdbcType=REAL}, #{restinterest,jdbcType=REAL}, 
+      #{fee,jdbcType=BIT}, #{aid,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, #{summaryflag,jdbcType=BIT}, 
+      #{seatProvid,jdbcType=INTEGER}, #{periodstatus,jdbcType=INTEGER}, #{schproid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.Member" >
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="student != null" >
+        student,
+      </if>
+      <if test="graduatedate != null" >
+        graduateDate,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="abnormal != null" >
+        abnormal,
+      </if>
+      <if test="provid != null" >
+        provid,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="alog != null" >
+        alog,
+      </if>
+      <if test="restamount != null" >
+        restAmount,
+      </if>
+      <if test="restinterest != null" >
+        restInterest,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="summaryflag != null" >
+        summaryflag,
+      </if>
+      <if test="seatProvid != null" >
+        seat_provid,
+      </if>
+      <if test="periodstatus != null" >
+        periodStatus,
+      </if>
+      <if test="schproid != null" >
+        schProId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="student != null" >
+        #{student,jdbcType=BIT},
+      </if>
+      <if test="graduatedate != null" >
+        #{graduatedate,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="abnormal != null" >
+        #{abnormal,jdbcType=BIT},
+      </if>
+      <if test="provid != null" >
+        #{provid,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=BIT},
+      </if>
+      <if test="alog != null" >
+        #{alog,jdbcType=INTEGER},
+      </if>
+      <if test="restamount != null" >
+        #{restamount,jdbcType=REAL},
+      </if>
+      <if test="restinterest != null" >
+        #{restinterest,jdbcType=REAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=BIT},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="summaryflag != null" >
+        #{summaryflag,jdbcType=BIT},
+      </if>
+      <if test="seatProvid != null" >
+        #{seatProvid,jdbcType=INTEGER},
+      </if>
+      <if test="periodstatus != null" >
+        #{periodstatus,jdbcType=INTEGER},
+      </if>
+      <if test="schproid != null" >
+        #{schproid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.student != null" >
+        student = #{record.student,jdbcType=BIT},
+      </if>
+      <if test="record.graduatedate != null" >
+        graduateDate = #{record.graduatedate,jdbcType=DATE},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.abnormal != null" >
+        abnormal = #{record.abnormal,jdbcType=BIT},
+      </if>
+      <if test="record.provid != null" >
+        provid = #{record.provid,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=BIT},
+      </if>
+      <if test="record.alog != null" >
+        alog = #{record.alog,jdbcType=INTEGER},
+      </if>
+      <if test="record.restamount != null" >
+        restAmount = #{record.restamount,jdbcType=REAL},
+      </if>
+      <if test="record.restinterest != null" >
+        restInterest = #{record.restinterest,jdbcType=REAL},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=BIT},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=INTEGER},
+      </if>
+      <if test="record.summaryflag != null" >
+        summaryflag = #{record.summaryflag,jdbcType=BIT},
+      </if>
+      <if test="record.seatProvid != null" >
+        seat_provid = #{record.seatProvid,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodstatus != null" >
+        periodStatus = #{record.periodstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.schproid != null" >
+        schProId = #{record.schproid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member
+    set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      student = #{record.student,jdbcType=BIT},
+      graduateDate = #{record.graduatedate,jdbcType=DATE},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      abnormal = #{record.abnormal,jdbcType=BIT},
+      provid = #{record.provid,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=BIT},
+      alog = #{record.alog,jdbcType=INTEGER},
+      restAmount = #{record.restamount,jdbcType=REAL},
+      restInterest = #{record.restinterest,jdbcType=REAL},
+      fee = #{record.fee,jdbcType=BIT},
+      aid = #{record.aid,jdbcType=INTEGER},
+      eid = #{record.eid,jdbcType=INTEGER},
+      summaryflag = #{record.summaryflag,jdbcType=BIT},
+      seat_provid = #{record.seatProvid,jdbcType=INTEGER},
+      periodStatus = #{record.periodstatus,jdbcType=INTEGER},
+      schProId = #{record.schproid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.Member" >
+    update member
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="student != null" >
+        student = #{student,jdbcType=BIT},
+      </if>
+      <if test="graduatedate != null" >
+        graduateDate = #{graduatedate,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="abnormal != null" >
+        abnormal = #{abnormal,jdbcType=BIT},
+      </if>
+      <if test="provid != null" >
+        provid = #{provid,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=BIT},
+      </if>
+      <if test="alog != null" >
+        alog = #{alog,jdbcType=INTEGER},
+      </if>
+      <if test="restamount != null" >
+        restAmount = #{restamount,jdbcType=REAL},
+      </if>
+      <if test="restinterest != null" >
+        restInterest = #{restinterest,jdbcType=REAL},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=BIT},
+      </if>
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="summaryflag != null" >
+        summaryflag = #{summaryflag,jdbcType=BIT},
+      </if>
+      <if test="seatProvid != null" >
+        seat_provid = #{seatProvid,jdbcType=INTEGER},
+      </if>
+      <if test="periodstatus != null" >
+        periodStatus = #{periodstatus,jdbcType=INTEGER},
+      </if>
+      <if test="schproid != null" >
+        schProId = #{schproid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Member" >
+    update member
+    set uid = #{uid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      student = #{student,jdbcType=BIT},
+      graduateDate = #{graduatedate,jdbcType=DATE},
+      time = #{time,jdbcType=TIMESTAMP},
+      abnormal = #{abnormal,jdbcType=BIT},
+      provid = #{provid,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=BIT},
+      alog = #{alog,jdbcType=INTEGER},
+      restAmount = #{restamount,jdbcType=REAL},
+      restInterest = #{restinterest,jdbcType=REAL},
+      fee = #{fee,jdbcType=BIT},
+      aid = #{aid,jdbcType=INTEGER},
+      eid = #{eid,jdbcType=INTEGER},
+      summaryflag = #{summaryflag,jdbcType=BIT},
+      seat_provid = #{seatProvid,jdbcType=INTEGER},
+      periodStatus = #{periodstatus,jdbcType=INTEGER},
+      schProId = #{schproid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

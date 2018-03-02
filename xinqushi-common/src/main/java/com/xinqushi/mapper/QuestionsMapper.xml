@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.QuestionsMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Questions" >
+    <id column="Id" property="id" jdbcType="BIGINT" />
+    <result column="cId" property="cid" jdbcType="INTEGER" />
+    <result column="qperson" property="qperson" jdbcType="VARCHAR" />
+    <result column="sperson" property="sperson" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xinqushi.entity.QuestionsWithBLOBs" extends="BaseResultMap" >
+    <result column="question" property="question" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, cId, qperson, sperson, time
+  </sql>
+  <sql id="Blob_Column_List" >
+    question, solution
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xinqushi.entity.QuestionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from questions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.QuestionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from questions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from questions
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from questions
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.QuestionsExample" >
+    delete from questions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.QuestionsWithBLOBs" >
+    insert into questions (Id, cId, qperson, 
+      sperson, time, question, 
+      solution)
+    values (#{id,jdbcType=BIGINT}, #{cid,jdbcType=INTEGER}, #{qperson,jdbcType=VARCHAR}, 
+      #{sperson,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{question,jdbcType=LONGVARCHAR}, 
+      #{solution,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.QuestionsWithBLOBs" >
+    insert into questions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="cid != null" >
+        cId,
+      </if>
+      <if test="qperson != null" >
+        qperson,
+      </if>
+      <if test="sperson != null" >
+        sperson,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="qperson != null" >
+        #{qperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sperson != null" >
+        #{sperson,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.QuestionsExample" resultType="java.lang.Integer" >
+    select count(*) from questions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update questions
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.cid != null" >
+        cId = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qperson != null" >
+        qperson = #{record.qperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sperson != null" >
+        sperson = #{record.sperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.question != null" >
+        question = #{record.question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.solution != null" >
+        solution = #{record.solution,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update questions
+    set Id = #{record.id,jdbcType=BIGINT},
+      cId = #{record.cid,jdbcType=INTEGER},
+      qperson = #{record.qperson,jdbcType=VARCHAR},
+      sperson = #{record.sperson,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      question = #{record.question,jdbcType=LONGVARCHAR},
+      solution = #{record.solution,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update questions
+    set Id = #{record.id,jdbcType=BIGINT},
+      cId = #{record.cid,jdbcType=INTEGER},
+      qperson = #{record.qperson,jdbcType=VARCHAR},
+      sperson = #{record.sperson,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.QuestionsWithBLOBs" >
+    update questions
+    <set >
+      <if test="cid != null" >
+        cId = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="qperson != null" >
+        qperson = #{qperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sperson != null" >
+        sperson = #{sperson,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xinqushi.entity.QuestionsWithBLOBs" >
+    update questions
+    set cId = #{cid,jdbcType=INTEGER},
+      qperson = #{qperson,jdbcType=VARCHAR},
+      sperson = #{sperson,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      question = #{question,jdbcType=LONGVARCHAR},
+      solution = #{solution,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Questions" >
+    update questions
+    set cId = #{cid,jdbcType=INTEGER},
+      qperson = #{qperson,jdbcType=VARCHAR},
+      sperson = #{sperson,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

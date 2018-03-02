@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.VisitorMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Visitor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="meid" property="meid" jdbcType="INTEGER" />
+    <result column="identityType" property="identitytype" jdbcType="INTEGER" />
+    <result column="VisitTime" property="visittime" jdbcType="TIMESTAMP" />
+    <result column="LeftTime" property="lefttime" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="agent" property="agent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, meid, identityType, VisitTime, LeftTime, ip, agent
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.VisitorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from visitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from visitor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visitor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.VisitorExample" >
+    delete from visitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.Visitor" >
+    insert into visitor (id, meid, identityType, 
+      VisitTime, LeftTime, ip, 
+      agent)
+    values (#{id,jdbcType=INTEGER}, #{meid,jdbcType=INTEGER}, #{identitytype,jdbcType=INTEGER}, 
+      #{visittime,jdbcType=TIMESTAMP}, #{lefttime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, 
+      #{agent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.Visitor" >
+    insert into visitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="meid != null" >
+        meid,
+      </if>
+      <if test="identitytype != null" >
+        identityType,
+      </if>
+      <if test="visittime != null" >
+        VisitTime,
+      </if>
+      <if test="lefttime != null" >
+        LeftTime,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="agent != null" >
+        agent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="meid != null" >
+        #{meid,jdbcType=INTEGER},
+      </if>
+      <if test="identitytype != null" >
+        #{identitytype,jdbcType=INTEGER},
+      </if>
+      <if test="visittime != null" >
+        #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lefttime != null" >
+        #{lefttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="agent != null" >
+        #{agent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.VisitorExample" resultType="java.lang.Integer" >
+    select count(*) from visitor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update visitor
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.meid != null" >
+        meid = #{record.meid,jdbcType=INTEGER},
+      </if>
+      <if test="record.identitytype != null" >
+        identityType = #{record.identitytype,jdbcType=INTEGER},
+      </if>
+      <if test="record.visittime != null" >
+        VisitTime = #{record.visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lefttime != null" >
+        LeftTime = #{record.lefttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agent != null" >
+        agent = #{record.agent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update visitor
+    set id = #{record.id,jdbcType=INTEGER},
+      meid = #{record.meid,jdbcType=INTEGER},
+      identityType = #{record.identitytype,jdbcType=INTEGER},
+      VisitTime = #{record.visittime,jdbcType=TIMESTAMP},
+      LeftTime = #{record.lefttime,jdbcType=TIMESTAMP},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      agent = #{record.agent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.Visitor" >
+    update visitor
+    <set >
+      <if test="meid != null" >
+        meid = #{meid,jdbcType=INTEGER},
+      </if>
+      <if test="identitytype != null" >
+        identityType = #{identitytype,jdbcType=INTEGER},
+      </if>
+      <if test="visittime != null" >
+        VisitTime = #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lefttime != null" >
+        LeftTime = #{lefttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="agent != null" >
+        agent = #{agent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Visitor" >
+    update visitor
+    set meid = #{meid,jdbcType=INTEGER},
+      identityType = #{identitytype,jdbcType=INTEGER},
+      VisitTime = #{visittime,jdbcType=TIMESTAMP},
+      LeftTime = #{lefttime,jdbcType=TIMESTAMP},
+      ip = #{ip,jdbcType=VARCHAR},
+      agent = #{agent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

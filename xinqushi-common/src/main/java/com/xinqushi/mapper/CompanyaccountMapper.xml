@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xinqushi.mapper.CompanyaccountMapper" >
+  <resultMap id="BaseResultMap" type="com.xinqushi.entity.Companyaccount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="arid" property="arid" jdbcType="TINYINT" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="ftype" property="ftype" jdbcType="TINYINT" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="mtype" property="mtype" jdbcType="INTEGER" />
+    <result column="review" property="review" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xinqushi.entity.Companyaccount" extends="BaseResultMap" >
+    <result column="details" property="details" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, arid, fid, ftype, aid, date, money, remark, mtype, review
+  </sql>
+  <sql id="Blob_Column_List" >
+    details
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xinqushi.entity.CompanyaccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from companyaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xinqushi.entity.CompanyaccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from companyaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from companyaccount
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from companyaccount
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xinqushi.entity.CompanyaccountExample" >
+    delete from companyaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xinqushi.entity.Companyaccount" >
+    insert into companyaccount (id, arid, fid, 
+      ftype, aid, date, 
+      money, remark, mtype, 
+      review, details)
+    values (#{id,jdbcType=INTEGER}, #{arid,jdbcType=TINYINT}, #{fid,jdbcType=INTEGER}, 
+      #{ftype,jdbcType=TINYINT}, #{aid,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, 
+      #{money,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{mtype,jdbcType=INTEGER}, 
+      #{review,jdbcType=TINYINT}, #{details,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xinqushi.entity.Companyaccount" >
+    insert into companyaccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="arid != null" >
+        arid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="ftype != null" >
+        ftype,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="mtype != null" >
+        mtype,
+      </if>
+      <if test="review != null" >
+        review,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="arid != null" >
+        #{arid,jdbcType=TINYINT},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=TINYINT},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="review != null" >
+        #{review,jdbcType=TINYINT},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xinqushi.entity.CompanyaccountExample" resultType="java.lang.Integer" >
+    select count(*) from companyaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update companyaccount
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.arid != null" >
+        arid = #{record.arid,jdbcType=TINYINT},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftype != null" >
+        ftype = #{record.ftype,jdbcType=TINYINT},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtype != null" >
+        mtype = #{record.mtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.review != null" >
+        review = #{record.review,jdbcType=TINYINT},
+      </if>
+      <if test="record.details != null" >
+        details = #{record.details,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update companyaccount
+    set id = #{record.id,jdbcType=INTEGER},
+      arid = #{record.arid,jdbcType=TINYINT},
+      fid = #{record.fid,jdbcType=INTEGER},
+      ftype = #{record.ftype,jdbcType=TINYINT},
+      aid = #{record.aid,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      money = #{record.money,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      mtype = #{record.mtype,jdbcType=INTEGER},
+      review = #{record.review,jdbcType=TINYINT},
+      details = #{record.details,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update companyaccount
+    set id = #{record.id,jdbcType=INTEGER},
+      arid = #{record.arid,jdbcType=TINYINT},
+      fid = #{record.fid,jdbcType=INTEGER},
+      ftype = #{record.ftype,jdbcType=TINYINT},
+      aid = #{record.aid,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      money = #{record.money,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      mtype = #{record.mtype,jdbcType=INTEGER},
+      review = #{record.review,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xinqushi.entity.Companyaccount" >
+    update companyaccount
+    <set >
+      <if test="arid != null" >
+        arid = #{arid,jdbcType=TINYINT},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="ftype != null" >
+        ftype = #{ftype,jdbcType=TINYINT},
+      </if>
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        mtype = #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="review != null" >
+        review = #{review,jdbcType=TINYINT},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xinqushi.entity.Companyaccount" >
+    update companyaccount
+    set arid = #{arid,jdbcType=TINYINT},
+      fid = #{fid,jdbcType=INTEGER},
+      ftype = #{ftype,jdbcType=TINYINT},
+      aid = #{aid,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      mtype = #{mtype,jdbcType=INTEGER},
+      review = #{review,jdbcType=TINYINT},
+      details = #{details,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xinqushi.entity.Companyaccount" >
+    update companyaccount
+    set arid = #{arid,jdbcType=TINYINT},
+      fid = #{fid,jdbcType=INTEGER},
+      ftype = #{ftype,jdbcType=TINYINT},
+      aid = #{aid,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      mtype = #{mtype,jdbcType=INTEGER},
+      review = #{review,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
